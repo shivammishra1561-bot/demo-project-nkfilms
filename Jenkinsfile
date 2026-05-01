@@ -13,7 +13,7 @@ pipeline {
         FULL_IMAGE         = "${DOCKER_HUB_USER}/${IMAGE_NAME}:${IMAGE_TAG}"
         LATEST_IMAGE       = "${DOCKER_HUB_USER}/${IMAGE_NAME}:latest"
         DOCKER_CREDENTIALS = 'dock-id'
-        TMDB_API_KEY       = credentials('tmbd-api-key')
+        TMDB_API_KEY       = credentials('tmdb-api-key')
     }
 
     stages {
@@ -112,7 +112,7 @@ pipeline {
                         kubectl apply -f k8s/service.yaml -n jenprod
                         kubectl apply -f k8s/hpa.yaml -n jenprod
 
-                        kubectl rollout status deployment/nkfilms-deployment -n nk --timeout=120s
+                        kubectl rollout status deployment/nkfilms-deployment -n jenprod --timeout=120s
                     '''
                 }
             }

@@ -7,7 +7,7 @@ pipeline {
 
     environment {
         SCANNER_HOME       = tool 'sonar-scanner'
-        DOCKER_HUB_USER    = 'nitishnatikar360'
+        DOCKER_HUB_USER    = 'shivam9141'
         IMAGE_NAME         = 'nkfilms'
         IMAGE_TAG          = "${BUILD_NUMBER}"
         FULL_IMAGE         = "${DOCKER_HUB_USER}/${IMAGE_NAME}:${IMAGE_TAG}"
@@ -41,9 +41,9 @@ pipeline {
                 withSonarQubeEnv('sonar-server') {
                     sh """
                         ${SCANNER_HOME}/bin/sonar-scanner \
-                        -Dsonar.projectName=Nkfilms \
-                        -Dsonar.projectKey=Nitishkumar7795_Nkfilms \
-                        -Dsonar.organization=nitishkumar7795 \
+                        -Dsonar.projectName= demo-project-nkfilms \
+                        -Dsonar.projectKey= shivammishra1561-bot \
+                        -Dsonar.organization=shivam1212 \
                         -Dsonar.host.url=https://sonarcloud.io \
                         -Dsonar.sources=src \
                         -Dsonar.language=js \
@@ -102,15 +102,15 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'kube-id', variable: 'K8S_TOKEN')]) {
                     sh '''
-                        kubectl config set-cluster k8s --server=https://10.0.3.77:6443 --insecure-skip-tls-verify=true
+                        kubectl config set-cluster k8s --server=https://10.0.20.27:6443 --insecure-skip-tls-verify=true
                         kubectl config set-credentials jenkins --token=$K8S_TOKEN
-                        kubectl config set-context k8s --cluster=k8s --user=jenkins --namespace=nk
+                        kubectl config set-context k8s --cluster=k8s --user=jenkins --namespace=jenprod
                         kubectl config use-context k8s
 
-                        kubectl apply -f k8s/secret.yaml -n nk
-                        kubectl apply -f k8s/deployment.yaml -n nk
-                        kubectl apply -f k8s/service.yaml -n nk
-                        kubectl apply -f k8s/hpa.yaml -n nk
+                        kubectl apply -f k8s/secret.yaml -n jenprod
+                        kubectl apply -f k8s/deployment.yaml -n jenprod
+                        kubectl apply -f k8s/service.yaml -n jenprod
+                        kubectl apply -f k8s/hpa.yaml -n jenprod
 
                         kubectl rollout status deployment/nkfilms-deployment -n nk --timeout=120s
                     '''
@@ -122,14 +122,14 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'kube-id', variable: 'K8S_TOKEN')]) {
                     sh '''
-                        kubectl config set-cluster k8s --server=https://10.0.3.77:6443 --insecure-skip-tls-verify=true
+                        kubectl config set-cluster k8s --server=https://https://10.0.20.27:6443 --insecure-skip-tls-verify=true
                         kubectl config set-credentials jenkins --token=$K8S_TOKEN
-                        kubectl config set-context k8s --cluster=k8s --user=jenkins --namespace=nk
+                        kubectl config set-context k8s --cluster=k8s --user=jenkins --namespace=jenprod
                         kubectl config use-context k8s
                         echo "=== Pods ==="
-                        kubectl get pods -l app=nkfilms -n nk
+                        kubectl get pods -l app=nkfilms -n jenprod
                         echo "=== Service ==="
-                        kubectl get service nkfilms-service -n nk
+                        kubectl get service nkfilms-service -n jenprod
                     '''
                 }
             }
@@ -145,11 +145,11 @@ pipeline {
             script {
                 withCredentials([string(credentialsId: 'kube-id', variable: 'K8S_TOKEN')]) {
                     sh '''
-                        kubectl config set-cluster k8s --server=https://10.0.3.77:6443 --insecure-skip-tls-verify=true
+                        kubectl config set-cluster k8s --server=https://https://10.0.20.27:6443 --insecure-skip-tls-verify=true
                         kubectl config set-credentials jenkins --token=$K8S_TOKEN
-                        kubectl config set-context k8s --cluster=k8s --user=jenkins --namespace=nk
+                        kubectl config set-context k8s --cluster=k8s --user=jenkins --namespace=jenprod
                         kubectl config use-context k8s
-                        kubectl rollout undo deployment/nkfilms-deployment -n nk || true
+                        kubectl rollout undo deployment/nkfilms-deployment -n jenprod || true
                     '''
                 }
             }

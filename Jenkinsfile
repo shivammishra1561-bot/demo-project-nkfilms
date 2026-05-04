@@ -43,7 +43,7 @@ pipeline {
                         ${SCANNER_HOME}/bin/sonar-scanner \
                         -Dsonar.projectName=demo-project-nkfilms \
                         -Dsonar.projectKey=shivammishra1561-bot_demo-project-nkfilms \
-                        -Dsonar.organization=shivammishra-bot \
+                        -Dsonar.organization=shivammishra1561-bot \
                         -Dsonar.host.url=https://sonarcloud.io \
                         -Dsonar.sources=src \
                         -Dsonar.language=js \

@@ -102,7 +102,7 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'kube-id', variable: 'K8S_TOKEN')]) {
                     sh '''
-                        kubectl config set-cluster k8s --server=https://10.0.20.27:6443 --insecure-skip-tls-verify=true
+                        kubectl config set-cluster k8s --server=https://10.0.10.110:6443 --insecure-skip-tls-verify=true
                         kubectl config set-credentials jenkins --token=$K8S_TOKEN
                         kubectl config set-context k8s --cluster=k8s --user=jenkins --namespace=jenprod
                         kubectl config use-context k8s
@@ -122,7 +122,7 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'kube-id', variable: 'K8S_TOKEN')]) {
                     sh '''
-                        kubectl config set-cluster k8s --server=https://10.0.20.27:6443 --insecure-skip-tls-verify=true
+                        kubectl config set-cluster k8s --server=https://10.0.10.110:6443 --insecure-skip-tls-verify=true
                         kubectl config set-credentials jenkins --token=$K8S_TOKEN
                         kubectl config set-context k8s --cluster=k8s --user=jenkins --namespace=jenprod
                         kubectl config use-context k8s
@@ -145,7 +145,7 @@ pipeline {
             script {
                 withCredentials([string(credentialsId: 'kube-id', variable: 'K8S_TOKEN')]) {
                     sh '''
-                        kubectl config set-cluster k8s --server=https://10.0.20.27:6443 --insecure-skip-tls-verify=true
+                        kubectl config set-cluster k8s --server=https://10.0.10.110:6443 --insecure-skip-tls-verify=true
                         kubectl config set-credentials jenkins --token=$K8S_TOKEN
                         kubectl config set-context k8s --cluster=k8s --user=jenkins --namespace=jenprod
                         kubectl config use-context k8s
